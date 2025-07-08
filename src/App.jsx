@@ -13,7 +13,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>In Progress...</h1>
+      <h1>Coming Soon...</h1>
       <p className="read-the-docs">James Paul Tulod's Portfolio</p>
     </>
   )
