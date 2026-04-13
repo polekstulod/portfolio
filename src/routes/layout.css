@@ -6,12 +6,16 @@
 	--color-primary: #f8dec5;
 	--color-secondary: #f4e2d6;
 	--color-text-main: #2b2b2b;
-	--color-accent: #c5f8f8;
+	--color-accent: #c05c47;
 	--font-serif: 'Cormorant Garamond', serif;
 	--font-sans: 'Inter', sans-serif;
 }
 
 @layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
 	body {
 		@apply min-h-screen bg-primary font-sans text-text-main antialiased selection:bg-accent selection:text-text-main;
 	}

@@ -44,8 +44,7 @@
 	<div class="mx-auto flex max-w-4xl flex-col items-center">
 		<h2 class="mb-4 text-center text-4xl font-bold">Interactive Playground</h2>
 		<p class="mb-12 max-w-lg text-center text-text-main/70">
-			A little GSAP physics experiment inspired by the "Recall Cars" feature. Scatter the blocks,
-			then call them back home.
+			A little GSAP physics experiment. Scatter the blocks, then call them back home.
 		</p>
 
 		<div class="relative z-10 mb-12 flex gap-4">

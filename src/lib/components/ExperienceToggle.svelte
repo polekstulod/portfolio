@@ -1,32 +1,34 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	import WorkExperience from './WorkExperience.svelte';
 	import Projects from './Projects.svelte';
 
 	let view = $state<'professional' | 'personal'>('professional');
 </script>
 
-<section id="experience" class="mx-auto max-w-4xl px-4 py-20">
-	<div class="mb-16 flex flex-col items-center">
-		<h2 class="mb-8 text-center text-4xl font-bold">Journey & Work</h2>
+<section id="experience" class="mx-auto max-w-4xl px-4 py-24">
+	<div class="mb-20 flex flex-col items-center">
+		<h2 class="mb-10 text-center text-4xl font-bold md:text-5xl">Journey & Work</h2>
 
 		<!-- Toggle Switch -->
-		<div class="inline-flex rounded-full border border-secondary bg-secondary/50 p-1">
+		<div
+			class="inline-flex rounded-full border border-secondary bg-secondary/50 p-1.5 shadow-inner"
+		>
 			<button
 				onclick={() => (view = 'professional')}
-				class="rounded-full px-8 py-3 text-sm font-semibold tracking-wide transition-all duration-300 {view ===
+				class="rounded-full px-8 py-3.5 text-sm font-bold tracking-wide transition-all duration-500 active:scale-95 {view ===
 				'professional'
-					? 'bg-primary shadow-sm'
-					: 'hover:bg-primary/50'}"
+					? 'scale-105 bg-accent text-primary shadow-lg'
+					: 'text-text-main/70 hover:bg-primary/60 hover:text-text-main'}"
 			>
 				Professional Experience
 			</button>
 			<button
 				onclick={() => (view = 'personal')}
-				class="rounded-full px-8 py-3 text-sm font-semibold tracking-wide transition-all duration-300 {view ===
+				class="rounded-full px-8 py-3.5 text-sm font-bold tracking-wide transition-all duration-500 active:scale-95 {view ===
 				'personal'
-					? 'bg-primary shadow-sm'
-					: 'hover:bg-primary/50'}"
+					? 'scale-105 bg-accent text-primary shadow-lg'
+					: 'text-text-main/70 hover:bg-primary/60 hover:text-text-main'}"
 			>
 				Personal Projects
 			</button>
@@ -37,7 +39,7 @@
 	<div class="grid">
 		{#if view === 'professional'}
 			<div
-				in:fade={{ duration: 400, delay: 200 }}
+				in:fly={{ y: 20, duration: 500, delay: 200 }}
 				out:fade={{ duration: 200 }}
 				class="col-start-1 row-start-1"
 			>
@@ -45,7 +47,7 @@
 			</div>
 		{:else}
 			<div
-				in:fade={{ duration: 400, delay: 200 }}
+				in:fly={{ y: 20, duration: 500, delay: 200 }}
 				out:fade={{ duration: 200 }}
 				class="col-start-1 row-start-1"
 			>
