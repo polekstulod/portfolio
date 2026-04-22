@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import gsap from 'gsap';
+	import { scrollReveal } from '$lib/actions/scrollReveal';
 
 	let container: HTMLDivElement;
 	let blocks: HTMLDivElement[] = [];
@@ -39,6 +40,7 @@
 
 <section
 	id="playground"
+	use:scrollReveal
 	class="overflow-hidden border-y border-secondary/50 bg-secondary/10 px-4 py-24"
 >
 	<div class="mx-auto flex max-w-4xl flex-col items-center">

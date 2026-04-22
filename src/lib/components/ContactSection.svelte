@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { personalInfo } from '$lib/data/portfolio';
+	import { scrollReveal } from '$lib/actions/scrollReveal';
 </script>
 
-<section id="contact" class="flex flex-col items-center px-4 py-32 text-center">
+<section id="contact" use:scrollReveal class="flex flex-col items-center px-4 py-32 text-center">
 	<h2 class="mb-6 text-5xl font-bold">Let's Build Something</h2>
 	<p class="mb-12 max-w-2xl text-xl leading-relaxed text-text-main/70">
 		I'm always open to discussing new opportunities, creative projects, or sharing a virtual coffee.

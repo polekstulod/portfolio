@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { skills } from '$lib/data/portfolio';
+	import { scrollReveal } from '$lib/actions/scrollReveal';
 </script>
 
-<section id="skills" class="mx-auto max-w-4xl px-4 py-24">
+<section id="skills" use:scrollReveal class="mx-auto max-w-4xl px-4 py-24">
 	<h2 class="mb-16 text-center text-4xl font-bold md:text-5xl">Technical Arsenal</h2>
 
 	<div class="grid grid-cols-1 gap-8 md:grid-cols-2">

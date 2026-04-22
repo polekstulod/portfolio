@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { fade, fly } from 'svelte/transition';
+	import { scrollReveal } from '$lib/actions/scrollReveal';
 	import WorkExperience from './WorkExperience.svelte';
 	import Projects from './Projects.svelte';
 
 	let view = $state<'professional' | 'personal'>('professional');
 </script>
 
-<section id="experience" class="mx-auto max-w-4xl px-4 py-24">
+<section id="experience" use:scrollReveal class="mx-auto max-w-4xl px-4 py-24">
 	<div class="mb-20 flex flex-col items-center">
 		<h2 class="mb-10 text-center text-4xl font-bold md:text-5xl">Journey & Work</h2>
 
