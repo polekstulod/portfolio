@@ -1,41 +1,33 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import gsap from 'gsap';
 	import { scrollReveal } from '$lib/actions/scrollReveal';
+	import { fade } from 'svelte/transition';
+	import ScatterBlocks from './playground/ScatterBlocks.svelte';
+	import TicTacToe from './playground/TicTacToe.svelte';
+	import ReactionTest from './playground/ReactionTest.svelte';
+	import MemoryMatch from './playground/MemoryMatch.svelte';
+	import GameOfLife from './playground/GameOfLife.svelte';
 
-	let container: HTMLDivElement;
-	let blocks: HTMLDivElement[] = [];
+	type GameId = 'scatter' | 'ttt' | 'reaction' | 'memory' | 'life';
+	type Game = { id: GameId; label: string; blurb: string };
 
-	onMount(() => {
-		scatterBlocks();
-	});
+	const games: Game[] = [
+		{ id: 'scatter', label: 'Scatter', blurb: 'GSAP physics — scatter and recall the blocks.' },
+		{ id: 'ttt', label: 'Tic-Tac-Toe', blurb: "Minimax AI. You can't win — only draw." },
+		{
+			id: 'reaction',
+			label: 'Reaction',
+			blurb: 'Click the panel when it turns green. Beat your best time.'
+		},
+		{ id: 'memory', label: 'Memory', blurb: 'Find all six pairs in the fewest moves.' },
+		{
+			id: 'life',
+			label: "Conway's Life",
+			blurb: 'Cellular automaton — draw a pattern, hit play, watch it evolve.'
+		}
+	];
 
-	function scatterBlocks() {
-		blocks.forEach((block) => {
-			const randomX = (Math.random() - 0.5) * 400;
-			const randomY = (Math.random() - 0.5) * 200;
-			const randomRot = (Math.random() - 0.5) * 360;
-
-			gsap.to(block, {
-				x: randomX,
-				y: randomY,
-				rotation: randomRot,
-				duration: 1.5,
-				ease: 'power3.out'
-			});
-		});
-	}
-
-	function recallBlocks() {
-		gsap.to(blocks, {
-			x: 0,
-			y: 0,
-			rotation: 0,
-			duration: 1,
-			stagger: 0.1,
-			ease: 'elastic.out(1, 0.5)'
-		});
-	}
+	let activeId: GameId = $state('scatter');
+	const active = $derived(games.find((g) => g.id === activeId)!);
 </script>
 
 <section
@@ -44,41 +36,41 @@
 	class="overflow-hidden border-y border-secondary/50 bg-secondary/10 px-4 py-24"
 >
 	<div class="mx-auto flex max-w-4xl flex-col items-center">
-		<h2 class="mb-4 text-center text-4xl font-bold">Interactive Playground</h2>
-		<p class="mb-12 max-w-lg text-center text-text-main/70">
-			A little GSAP physics experiment. Scatter the blocks, then call them back home.
+		<h2 class="mb-3 text-center text-4xl font-bold">Interactive Playground</h2>
+		<p class="mb-8 max-w-xl text-center text-text-main/70">
+			Five mini-games — algorithms, animations, and reactivity. Pick a toy.
 		</p>
 
-		<div class="relative z-10 mb-12 flex gap-4">
-			<button
-				onclick={scatterBlocks}
-				class="rounded-full bg-text-main px-6 py-3 font-medium text-primary shadow-lg transition-colors hover:bg-text-main/80"
-			>
-				Scatter Blocks
-			</button>
-			<button
-				onclick={recallBlocks}
-				class="rounded-full border border-text-main/10 bg-accent px-6 py-3 font-medium text-text-main shadow-lg transition-all hover:brightness-110"
-			>
-				Recall Blocks
-			</button>
+		<div class="mb-6 flex flex-wrap justify-center gap-2" role="tablist">
+			{#each games as game (game.id)}
+				<button
+					onclick={() => (activeId = game.id)}
+					aria-pressed={activeId === game.id}
+					class="rounded-full px-4 py-2 text-sm font-medium transition-colors {activeId === game.id
+						? 'bg-text-main text-primary shadow-lg'
+						: 'border border-text-main/20 text-text-main hover:bg-text-main/10'}"
+				>
+					{game.label}
+				</button>
+			{/each}
 		</div>
 
-		<!-- Physics Area -->
-		<div
-			bind:this={container}
-			class="relative flex h-64 w-full max-w-2xl items-center justify-center rounded-3xl border-2 border-dashed border-text-main/20"
-		>
-			<div class="relative h-12 w-12">
-				{#each Array(5) as _, i (i)}
-					<div
-						bind:this={blocks[i]}
-						class="absolute inset-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-text-main to-text-main/80 font-bold text-primary shadow-xl"
-					>
-						{i + 1}
-					</div>
-				{/each}
+		<p class="mb-10 text-center text-sm text-text-main/60">{active.blurb}</p>
+
+		{#key activeId}
+			<div in:fade={{ duration: 220 }} class="w-full">
+				{#if activeId === 'scatter'}
+					<ScatterBlocks />
+				{:else if activeId === 'ttt'}
+					<TicTacToe />
+				{:else if activeId === 'reaction'}
+					<ReactionTest />
+				{:else if activeId === 'memory'}
+					<MemoryMatch />
+				{:else if activeId === 'life'}
+					<GameOfLife />
+				{/if}
 			</div>
-		</div>
+		{/key}
 	</div>
 </section>
